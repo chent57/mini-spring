@@ -21,6 +21,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected Object doCreateBean(String beanName, BeanDefinition beanDefinition) {
 		Object bean = null;
 		try {
+			// 通过获取bean类型，然后用bean类型获取constructor，最后用constructor获取实例
 			bean = createBeanInstance(beanDefinition);
 			//为bean填充属性
 			applyPropertyValues(beanName, bean, beanDefinition);
@@ -54,7 +55,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				String name = propertyValue.getName();
 				Object value = propertyValue.getValue();
 
-				//通过反射设置属性
+				//通过反射把属性name和value设置到bean(Object)中
 				BeanUtil.setFieldValue(bean, name, value);
 			}
 		} catch (Exception ex) {

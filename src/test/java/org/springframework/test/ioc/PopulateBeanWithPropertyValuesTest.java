@@ -22,6 +22,7 @@ public class PopulateBeanWithPropertyValuesTest {
 		propertyValues.addPropertyValue(new PropertyValue("name", "derek"));
 		propertyValues.addPropertyValue(new PropertyValue("age", 18));
 		BeanDefinition beanDefinition = new BeanDefinition(Person.class, propertyValues);
+		// 注册bean时包含bean属性
 		beanFactory.registerBeanDefinition("person", beanDefinition);
 
 		Person person = (Person) beanFactory.getBean("person");
