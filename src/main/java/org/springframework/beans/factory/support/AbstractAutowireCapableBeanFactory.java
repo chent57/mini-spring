@@ -20,6 +20,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Class beanClass = beanDefinition.getBeanClass();
 		Object bean = null;
 		try {
+			// 实例化策略在这里实现，没有策略时直接使用beanClass.newInstance()
 			bean = createBeanInstance(beanDefinition);
 		} catch (Exception e) {
 			throw new BeansException("Instantiation of bean failed", e);
