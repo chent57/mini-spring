@@ -57,6 +57,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				if (value instanceof BeanReference) {
 					// beanA依赖beanB，先实例化beanB
 					BeanReference beanReference = (BeanReference) value;
+					// getBean是一个递归，这里先实例化了car，再实例化person
 					value = getBean(beanReference.getBeanName());
 				}
 

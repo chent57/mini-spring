@@ -51,6 +51,7 @@ public class PopulateBeanWithPropertyValuesTest {
 		PropertyValues propertyValuesForPerson = new PropertyValues();
 		propertyValuesForPerson.addPropertyValue(new PropertyValue("name", "derek"));
 		propertyValuesForPerson.addPropertyValue(new PropertyValue("age", 18));
+
 		//Person实例依赖Car实例
 		propertyValuesForPerson.addPropertyValue(new PropertyValue("car", new BeanReference("car")));
 		BeanDefinition beanDefinition = new BeanDefinition(Person.class, propertyValuesForPerson);
