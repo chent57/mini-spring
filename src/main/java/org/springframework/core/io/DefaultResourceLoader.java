@@ -19,6 +19,7 @@ public class DefaultResourceLoader implements ResourceLoader {
 		} else {
 			try {
 				//尝试当成url来处理
+				// 从location中无法解析出协议格式、protocol未知或者为null会抛出MalformedURLException异常
 				URL url = new URL(location);
 				return new UrlResource(url);
 			} catch (MalformedURLException ex) {
