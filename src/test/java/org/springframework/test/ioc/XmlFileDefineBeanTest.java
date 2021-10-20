@@ -18,6 +18,7 @@ public class XmlFileDefineBeanTest {
 	public void testXmlFile() throws Exception {
 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+		// 1. 解析并注册XML文件中的bean
 		beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 		Person person = (Person) beanFactory.getBean("person");

@@ -43,6 +43,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	@Override
 	public void loadBeanDefinitions(String location) throws BeansException {
+		// 2. 通过String类型的location获取指定类型的Resource
 		ResourceLoader resourceLoader = getResourceLoader();
 		Resource resource = resourceLoader.getResource(location);
 		loadBeanDefinitions(resource);
@@ -51,6 +52,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	@Override
 	public void loadBeanDefinitions(Resource resource) throws BeansException {
 		try {
+			// 3. 通过Resource获取InputStream
 			InputStream inputStream = resource.getInputStream();
 			try {
 				doLoadBeanDefinitions(inputStream);
@@ -63,6 +65,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	protected void doLoadBeanDefinitions(InputStream inputStream) {
+		// 4. 通过InputStream读取XML到Document，解析XML获取到各个bean和属性信息
 		Document document = XmlUtil.readXML(inputStream);
 		Element root = document.getDocumentElement();
 		NodeList childNodes = root.getChildNodes();
@@ -108,6 +111,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 									value = new BeanReference(refAttribute);
 								}
 								PropertyValue propertyValue = new PropertyValue(nameAttribute, value);
+								// 5. 为bean填充属性值
 								beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
 							}
 						}
@@ -117,6 +121,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 						throw new BeansException("Duplicate beanName[" + beanName + "] is not allowed");
 					}
 					//注册BeanDefinition
+					// 6. 注册bean
 					getRegistry().registerBeanDefinition(beanName, beanDefinition);
 				}
 			}
