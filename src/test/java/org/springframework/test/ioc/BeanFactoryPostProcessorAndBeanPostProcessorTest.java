@@ -36,12 +36,15 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 	public void testBeanPostProcessor() throws Exception {
 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+		// 2.1 从xml文件读取并注册bean
 		beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 		//添加bean实例化后的处理器
+		// 2.2 为bean工厂注册BeanPostProcessor，这个BeanPostProcessor是自定义的
 		CustomerBeanPostProcessor customerBeanPostProcessor = new CustomerBeanPostProcessor();
 		beanFactory.addBeanPostProcessor(customerBeanPostProcessor);
 
+		// 2.3 实例化并获取bean
 		Car car = (Car) beanFactory.getBean("car");
 		System.out.println(car);
 		//brand属性在CustomerBeanPostProcessor中被修改为lamborghini

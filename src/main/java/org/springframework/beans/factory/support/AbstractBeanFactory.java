@@ -27,6 +27,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 		}
 
 		BeanDefinition beanDefinition = getBeanDefinition(name);
+		// 2.4 bean实例不存在，所以实例化bean
 		return createBean(name, beanDefinition);
 	}
 
