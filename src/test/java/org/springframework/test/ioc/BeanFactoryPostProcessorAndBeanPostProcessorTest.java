@@ -40,7 +40,7 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 		beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 		//添加bean实例化后的处理器
-		// 2.2 为bean工厂注册BeanPostProcessor，这个BeanPostProcessor是自定义的
+		// 2.2 为bean工厂注册BeanPostProcessor，这个BeanPostProcessor是自定义的，包含前置和后置处理器
 		CustomerBeanPostProcessor customerBeanPostProcessor = new CustomerBeanPostProcessor();
 		beanFactory.addBeanPostProcessor(customerBeanPostProcessor);
 

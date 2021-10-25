@@ -26,10 +26,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object bean = null;
 		try {
 			bean = createBeanInstance(beanDefinition);
-			//2.5 为bean填充属性
+			// 2.5 为bean填充属性
 			applyPropertyValues(beanName, bean, beanDefinition);
 
-			//2.6 执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
+			// 2.6 执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
 			initializeBean(beanName, bean, beanDefinition); // BeanPostProcessor核心调用代码，这这里处理前置和后置处理器，以及bean初始化
 		} catch (Exception e) {
 			throw new BeansException("Instantiation of bean failed", e);
@@ -75,13 +75,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	protected Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
-		//2.7 执行BeanPostProcessor的前置处理
+		// 2.7 执行BeanPostProcessor的前置处理
 		Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
-		//2.10 TODO 后面会在此处执行bean的初始化方法
+		// 2.9 TODO 后面会在此处执行bean的初始化方法
 		invokeInitMethods(beanName, wrappedBean, beanDefinition);
 
-		//2.11 执行BeanPostProcessor的后置处理
+		//2.10 执行BeanPostProcessor的后置处理
 		wrappedBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
 		return wrappedBean;
 	}
@@ -90,7 +90,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName)
 			throws BeansException {
 		Object result = existingBean;
-		// 2.8 遍历所有BeanPostProcessor，对bea执行进行初始化前的处理
+		// 2.8 遍历所有BeanPostProcessor，对bean执行进行初始化前的处理
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			Object current = processor.postProcessBeforeInitialization(result, beanName);
 			if (current == null) {
@@ -106,7 +106,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			throws BeansException {
 
 		Object result = existingBean;
-		// 2.8 遍历所有BeanPostProcessor，对bea执行进行初始化后的处理
+		// 2.11 遍历所有BeanPostProcessor，对bea执行进行初始化后的处理
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			Object current = processor.postProcessAfterInitialization(result, beanName);
 			if (current == null) {
