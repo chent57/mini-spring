@@ -30,10 +30,14 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 	public void testBeanFactoryPostProcessor() throws Exception {
 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+		// 1.1 从xml文件读取并注册bean
 		beanDefinitionReader.loadBeanDefinitions("classpath:spring.xml");
 
 		//在所有BeanDefintion加载完成后，但在bean实例化之前，修改BeanDefinition的属性值
+		// 1.2 为bean工厂注册BeanFactoryPostProcessor，这个BeanFactoryPostProcessor是自定义的，仅包含后置处理器
 		CustomBeanFactoryPostProcessor beanFactoryPostProcessor = new CustomBeanFactoryPostProcessor();
+
+		// 1.3 对bean工厂的某个bean做修改
 		beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
 
 		Person person = (Person) beanFactory.getBean("person");
