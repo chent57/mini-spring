@@ -21,8 +21,8 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 	* 		1. BeanFactoryPostProcessor是针对于beanFactory的扩展点，可以修改、增加beanDefinition（bean的定义）
 	* 		2. BeanPostProcessor是针对bean的扩展点，即spring会在bean初始化前后调用方法对bean进行处理
 	 * 执行时机：
-	 * 		1. BeanFactoryPostProcessor：spring会在beanFactory初始化之后，beanDefinition都已经loaded，但是bean还未创建前进行调用
-	 * 		2. BeanPostProcessor：实例化前后
+	 * 		1. BeanFactoryPostProcessor：在bean实例化之前修改bean的定义信息即BeanDefinition的信息
+	 * 		2. BeanPostProcessor：实例化后修改bean或替换bean
 	*
 	* */
 
