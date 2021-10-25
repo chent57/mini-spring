@@ -15,6 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @date 2020/11/28
  */
 public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
+	/*关于BeanFactoryPostProcessor和BeanPostProcessor
+	* 作用概述：都是spring初始化bean的扩展点
+	* 区别：
+	* 		1. BeanFactoryPostProcessor是针对于beanFactory的扩展点，可以修改、增加beanDefinition（bean的定义）
+	* 		2. BeanPostProcessor是针对bean的扩展点，即spring会在bean初始化前后调用方法对bean进行处理
+	 * 执行时机：
+	 * 		1. BeanFactoryPostProcessor：spring会在beanFactory初始化之后，beanDefinition都已经loaded，但是bean还未创建前进行调用
+	 * 		2. BeanPostProcessor：实例化前后
+	*
+	* */
 
 	@Test
 	public void testBeanFactoryPostProcessor() throws Exception {
