@@ -15,9 +15,16 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor 
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		// 1.4 获取指定BeanDefinition
 		BeanDefinition personBeanDefiniton = beanFactory.getBeanDefinition("person");
+
+		// 1.5 获取BeanDefinition的属性值
 		PropertyValues propertyValues = personBeanDefiniton.getPropertyValues();
-		//将person的name属性改为ivy
+
+		// 1.6 将person的name属性改为ivy
 		propertyValues.addPropertyValue(new PropertyValue("name", "ivy"));
+
+		// 1.7 添加属性值
+		propertyValues.addPropertyValue(new PropertyValue("age", "18"));
 	}
 }
