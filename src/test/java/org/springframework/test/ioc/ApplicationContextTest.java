@@ -15,8 +15,11 @@ public class ApplicationContextTest {
 
 	@Test
 	public void testApplicationContext() throws Exception {
+		// 1. 从classpath的xml文件加载BeanDefinition->在bean实例化之前，执行BeanFactoryPostProcessor
+		// -> 为bean工厂注册BeanPostProcessor -> 实例化单实例的bean
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
 
+		// 11.直接获取到bean实例，不需要再实例化（单例bean）
 		Person person = applicationContext.getBean("person", Person.class);
 		System.out.println(person);
 		//name属性在CustomBeanFactoryPostProcessor中被修改为ivy

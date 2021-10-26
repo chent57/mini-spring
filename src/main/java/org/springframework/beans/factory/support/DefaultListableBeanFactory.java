@@ -58,6 +58,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	@Override
 	public void preInstantiateSingletons() throws BeansException {
+
+		// 这里不是对所有的BeanDefinition进行实例化吗？怎么体现出是单实例呢？
 		beanDefinitionMap.keySet().forEach(this::getBean);
 	}
 }

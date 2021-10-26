@@ -17,7 +17,10 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * @throws BeansException
 	 */
 	protected final void refreshBeanFactory() throws BeansException {
+		// 4.创建Bean工厂
 		DefaultListableBeanFactory beanFactory = createBeanFactory();
+
+		// 5.为Bean工厂加载BeanDefinition
 		loadBeanDefinitions(beanFactory);
 		this.beanFactory = beanFactory;
 	}
