@@ -25,8 +25,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 		// 7. 获取bean工厂
 		ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 
-		// 8.在bean实例化之前，执行BeanFactoryPostProcessor。
-		// 为什么在这里就开始实例化bean了？
+		// 8.在bean实例化之前，执行BeanFactoryPostProcessor
 		invokeBeanFactoryPostProcessors(beanFactory);
 
 		// 9.为bean工厂注册BeanPostProcessor（BeanPostProcessor需要提前与其他bean实例化之前注册）
@@ -49,6 +48,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 	 * @param beanFactory
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+		// map只包含一个元素-即XML文件中定义的CustomBeanFactoryPostProcessor
 		Map<String, BeanFactoryPostProcessor> beanFactoryPostProcessorMap = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
 		for (BeanFactoryPostProcessor beanFactoryPostProcessor : beanFactoryPostProcessorMap.values()) {
 			beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
@@ -61,10 +61,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 	 * @param beanFactory
 	 */
 	protected void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+		// 只包含一个元素-XML文件中定义的CustomerBeanPostProcessor
 		Map<String, BeanPostProcessor> beanPostProcessorMap = beanFactory.getBeansOfType(BeanPostProcessor.class);
 		for (BeanPostProcessor beanPostProcessor : beanPostProcessorMap.values()) {
-
-			// 这里需要给Bean工厂注册所有的BeanPostProcessor吗？
 			beanFactory.addBeanPostProcessor(beanPostProcessor);
 		}
 	}
