@@ -26,6 +26,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	@Override
 	protected Object createBean(String beanName, BeanDefinition beanDefinition) throws BeansException {
+		// 9. 实例化Bean
 		return doCreateBean(beanName, beanDefinition);
 	}
 
@@ -35,13 +36,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			bean = createBeanInstance(beanDefinition);
 			//为bean填充属性
 			applyPropertyValues(beanName, bean, beanDefinition);
-			//执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
+			// 10.执行bean的初始化方法和BeanPostProcessor的前置和后置处理方法
 			initializeBean(beanName, bean, beanDefinition);
 		} catch (Exception e) {
 			throw new BeansException("Instantiation of bean failed", e);
 		}
 
-		//注册有销毁方法的bean
+		// 16.注册有销毁方法的bean
 		registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
 
 		addSingleton(beanName, bean);
@@ -97,16 +98,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	protected Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
-		//执行BeanPostProcessor的前置处理
+		// 11.执行BeanPostProcessor的前置处理
 		Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
 		try {
+			// 12. 执行Bean初始化方法
 			invokeInitMethods(beanName, wrappedBean, beanDefinition);
 		} catch (Throwable ex) {
 			throw new BeansException("Invocation of init method of bean[" + beanName + "] failed", ex);
 		}
 
-		//执行BeanPostProcessor的后置处理
+		// 15. 执行BeanPostProcessor的后置处理
 		wrappedBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
 		return wrappedBean;
 	}
@@ -150,8 +152,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	protected void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Throwable {
 		if (bean instanceof InitializingBean) {
+			// 13.执行afterPropertiesSet方法
 			((InitializingBean) bean).afterPropertiesSet();
 		}
+
+		// 14.执行自定义初始化方法
 		String initMethodName = beanDefinition.getInitMethodName();
 		if (StrUtil.isNotEmpty(initMethodName)) {
 			Method initMethod = ClassUtil.getPublicMethod(beanDefinition.getBeanClass(), initMethodName);

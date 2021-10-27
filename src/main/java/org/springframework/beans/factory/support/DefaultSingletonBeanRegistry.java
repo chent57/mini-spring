@@ -37,6 +37,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 		for (String beanName : beanNames) {
 			DisposableBean disposableBean = disposableBeans.remove(beanName);
 			try {
+				// 18.执行已定义并注册的销毁方法
 				disposableBean.destroy();
 			} catch (Exception e) {
 				throw new BeansException("Destroy method on bean with name '" + beanName + "' threw an exception", e);
