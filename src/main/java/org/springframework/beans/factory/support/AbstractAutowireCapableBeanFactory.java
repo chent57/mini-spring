@@ -33,6 +33,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected Object doCreateBean(String beanName, BeanDefinition beanDefinition) {
 		Object bean = null;
 		try {
+			// 1. 实例化Bean
 			bean = createBeanInstance(beanDefinition);
 			//为bean填充属性
 			applyPropertyValues(beanName, bean, beanDefinition);
@@ -98,11 +99,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	protected Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+		// 2.beanFactoryAware.setBeanFactory (这个设置了有什么作用呢？)
 		if (bean instanceof BeanFactoryAware) {
 			((BeanFactoryAware) bean).setBeanFactory(this);
 		}
 
-		//执行BeanPostProcessor的前置处理
+		// 3.执行BeanPostProcessor的前置处理
 		Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
 		try {
@@ -121,6 +123,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			throws BeansException {
 		Object result = existingBean;
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
+			// 4. ApplicationContextAware
 			Object current = processor.postProcessBeforeInitialization(result, beanName);
 			if (current == null) {
 				return result;

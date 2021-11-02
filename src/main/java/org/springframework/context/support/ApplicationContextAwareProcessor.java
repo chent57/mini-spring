@@ -19,6 +19,7 @@ public class ApplicationContextAwareProcessor implements BeanPostProcessor {
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		// 5.ApplicationContextAware.setApplicationContext (这个接口有什么作用？)
 		if (bean instanceof ApplicationContextAware) {
 			((ApplicationContextAware) bean).setApplicationContext(applicationContext);
 		}

@@ -17,6 +17,10 @@ import java.util.Map;
  */
 public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
 
+	/*
+	* 要区分Bean实例化和初始化
+	* */
+
 	@Override
 	public void refresh() throws BeansException {
 		//创建BeanFactory，并加载BeanDefinition
