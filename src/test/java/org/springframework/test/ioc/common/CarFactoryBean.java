@@ -7,6 +7,7 @@ import org.springframework.test.ioc.bean.Car;
  * @author derekyi
  * @date 2020/12/2
  */
+// 0.定义FactoryBean
 public class CarFactoryBean implements FactoryBean<Car> {
 
 	private String brand;

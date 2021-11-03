@@ -34,6 +34,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
 		BeanDefinition beanDefinition = getBeanDefinition(name);
 		Object bean = createBean(name, beanDefinition);
+		// 3.向容器获取bean
 		return getObjectForBeanInstance(bean, name);
 	}
 
@@ -53,11 +54,13 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 					//singleton作用域bean，从缓存中获取
 					object = this.factoryBeanObjectCache.get(beanName);
 					if (object == null) {
+						// 4.向容器获取FactoryBean时，不是直接返回本身，而是返回getObject（singleton情况）
 						object = factoryBean.getObject();
 						this.factoryBeanObjectCache.put(beanName, object);
 					}
 				} else {
 					//prototype作用域bean，新创建bean
+					// 5.向容器获取FactoryBean时，不是直接返回本身，而是返回getObject（prototype情况）
 					object = factoryBean.getObject();
 				}
 			} catch (Exception ex) {

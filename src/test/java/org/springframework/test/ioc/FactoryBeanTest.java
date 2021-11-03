@@ -14,8 +14,10 @@ public class FactoryBeanTest {
 
 	@Test
 	public void testFactoryBean() throws Exception {
+		// 1.创建并初始化singleton的bean
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:factory-bean.xml");
 
+		// 2.向容器中获取FactoryBean
 		Car car = applicationContext.getBean("car", Car.class);
 		assertThat(car.getBrand()).isEqualTo("porsche");
 	}
