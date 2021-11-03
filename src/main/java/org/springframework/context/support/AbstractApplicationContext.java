@@ -43,16 +43,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 		//BeanPostProcessor需要提前与其他bean实例化之前注册
 		registerBeanPostProcessors(beanFactory);
 
-		//初始化事件发布者
+		// 1.初始化事件发布者
 		initApplicationEventMulticaster();
 
-		//注册事件监听器
+		// 2.注册事件监听器
 		registerListeners();
 
 		//提前实例化单例bean
 		beanFactory.preInstantiateSingletons();
 
-		//发布容器刷新完成事件
+		// 3.发布容器刷新完成事件
 		finishRefresh();
 	}
 
@@ -145,6 +145,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 	public void registerShutdownHook() {
 		Thread shutdownHook = new Thread() {
 			public void run() {
+				// 6. 容器关闭事件
 				doClose();
 			}
 		};
@@ -153,7 +154,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 	}
 
 	protected void doClose() {
-		//发布容器关闭事件
+		// 6.发布容器关闭事件
 		publishEvent(new ContextClosedEvent(this));
 
 		//执行单例bean的销毁方法
