@@ -79,6 +79,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			String className = bean.attributeValue(CLASS_ATTRIBUTE);
 			String initMethodName = bean.attributeValue(INIT_METHOD_ATTRIBUTE);
 			String destroyMethodName = bean.attributeValue(DESTROY_METHOD_ATTRIBUTE);
+			// 4.设置bean的scope属性
 			String beanScope = bean.attributeValue(SCOPE_ATTRIBUTE);
 
 			Class<?> clazz;

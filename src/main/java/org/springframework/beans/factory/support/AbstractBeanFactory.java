@@ -21,12 +21,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
 	@Override
 	public Object getBean(String name) throws BeansException {
+		// 11. 在使用bean时如果bean是singleton的，这里就可以直接获取到了
 		Object bean = getSingleton(name);
 		if (bean != null) {
 			return bean;
 		}
 
 		BeanDefinition beanDefinition = getBeanDefinition(name);
+		// 12. 如果bean是prototype的，第一次使用时进行实例化
 		return createBean(name, beanDefinition);
 	}
 

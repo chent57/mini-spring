@@ -7,6 +7,7 @@
 		 http://www.springframework.org/schema/context
 		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+<!-- 可以在bean定义的时候把scope去掉来进行测试，无scope时bean默认是singleton的   -->
     <bean id="car" class="org.springframework.test.ioc.bean.Car" scope="prototype">
         <property name="brand" value="porsche"/>
     </bean>

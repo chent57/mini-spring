@@ -14,8 +14,10 @@ public class PrototypeBeanTest {
 
 	@Test
 	public void testPrototype() throws Exception {
+		// 1. 加载scope为prototype的bean
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:prototype-bean.xml");
 
+		// 10. 使用prototype的bean时才实例化
 		Car car1 = applicationContext.getBean("car", Car.class);
 		Car car2 = applicationContext.getBean("car", Car.class);
 		assertThat(car1 != car2).isTrue();
