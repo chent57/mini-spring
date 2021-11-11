@@ -13,6 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @date 2020/12/5
  */
 public class PointcutExpressionTest {
+	/*
+	* Joinpoint，织入点，指需要执行代理操作的某个类的某个方法(仅支持方法级别的JoinPoint)
+	* */
 
 	@Test
 	public void testPointcutExpression() throws Exception {

@@ -16,7 +16,11 @@ import java.util.Set;
  * @date 2020/12/5
  */
 public class AspectJExpressionPointcut implements Pointcut, ClassFilter, MethodMatcher {
+	/*
+	* AspectJExpressionPointcut是支持AspectJ切点表达式的PointCut实现，简单实现仅支持execution函数。
+	* */
 
+	// 支持原语
 	private static final Set<PointcutPrimitive> SUPPORTED_PRIMITIVES = new HashSet<PointcutPrimitive>();
 
 	static {
