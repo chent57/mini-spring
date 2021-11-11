@@ -24,24 +24,34 @@ public class DynamicProxyTest {
 	public void setup() {
 		WorldService worldService = new WorldServiceImpl();
 
-		advisedSupport = new AdvisedSupport();
+		// 1. 设置被代理对象（Joinpoint)
 		TargetSource targetSource = new TargetSource(worldService);
-		WorldServiceInterceptor methodInterceptor = new WorldServiceInterceptor();
-		MethodMatcher methodMatcher = new AspectJExpressionPointcut("execution(* org.springframework.test.service.WorldService.explode(..))").getMethodMatcher();
+		advisedSupport = new AdvisedSupport();
 		advisedSupport.setTargetSource(targetSource);
+
+		// 2.设置拦截器(Advice)
+		WorldServiceInterceptor methodInterceptor = new WorldServiceInterceptor();
 		advisedSupport.setMethodInterceptor(methodInterceptor);
+
+		MethodMatcher methodMatcher = new AspectJExpressionPointcut("execution(* org.springframework.test.service.WorldService.explode(..))").getMethodMatcher();
 		advisedSupport.setMethodMatcher(methodMatcher);
 	}
 
 	@Test
 	public void testJdkDynamicProxy() throws Exception {
+		// 3. 创建代理(Proxy)
 		WorldService proxy = (WorldService) new JdkDynamicAopProxy(advisedSupport).getProxy();
+
+		// 4.基于AOP的调用
 		proxy.explode();
 	}
 
 	@Test
 	public void testCglibDynamicProxy() throws Exception {
+		// 3. 创建代理(Proxy)
 		WorldService proxy = (WorldService) new CglibAopProxy(advisedSupport).getProxy();
+
+		// 4.基于AOP的调用
 		proxy.explode();
 	}
 }

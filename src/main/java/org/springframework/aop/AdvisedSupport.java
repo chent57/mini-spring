@@ -10,6 +10,7 @@ public class AdvisedSupport {
 
 	private TargetSource targetSource;
 
+	// 方法拦截器
 	private MethodInterceptor methodInterceptor;
 
 	private MethodMatcher methodMatcher;
