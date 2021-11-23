@@ -34,11 +34,22 @@ public class AspectJExpressionPointcut implements Pointcut, ClassFilter, MethodM
 		pointcutExpression = pointcutParser.parsePointcutExpression(expression);
 	}
 
+	/**
+	 * 是否匹配这个类
+	 * @param clazz 类
+	 * @return 返回是否匹配类
+	 */
 	@Override
 	public boolean matches(Class<?> clazz) {
 		return pointcutExpression.couldMatchJoinPointsInType(clazz);
 	}
 
+	/**
+	 * 是否匹配类中的方法
+	 * @param method 方法
+	 * @param targetClass 类
+	 * @return 是否匹配类中的方法
+	 */
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		return pointcutExpression.matchesMethodExecution(method).alwaysMatches();
