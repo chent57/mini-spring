@@ -13,8 +13,13 @@ public class SimpleBeanContainerTest {
 
 	@Test
 	public void testGetBean() throws Exception {
+		// 1. 定义bean工厂
 		BeanFactory beanFactory = new BeanFactory();
+
+		// 2. 为bean工厂注册bean
 		beanFactory.registerBean("helloService", new HelloService());
+
+		// 3. 从bean工厂获取bean实例
 		HelloService helloService = (HelloService) beanFactory.getBean("helloService");
 		assertThat(helloService).isNotNull();
 		assertThat(helloService.sayHello()).isEqualTo("hello");
